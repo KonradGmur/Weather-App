@@ -7,9 +7,12 @@ class App extends Component {
   state = {}
 
   render() {
-    return ( 
-      
-     );
+    return (
+      <div className="App">
+        <Form/>
+        <Result/>
+      </div>
+    );
   }
 }
 
