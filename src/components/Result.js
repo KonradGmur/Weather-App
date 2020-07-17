@@ -9,15 +9,15 @@ const Result = (props) => {
     const sunriseTime = new Date(sunrise * 1000).toLocaleTimeString();
     const sunsetTime = new Date(sunset * 1000).toLocaleTimeString();
     content = (
-      <div>
-        <h3>Wyniki wyszukiwania dla <em>{city}</em></h3>
+      <>
+        <h3>Wyniki wyszukiwania dla: <em>{city}</em></h3>
         <h4>Dane dla dnia i godzine: {date}</h4>
         <h4>Aktualna temperatura: {temp} &#176;C</h4>
         <h4>Wschód słońca dzisiaj: {sunriseTime}</h4>
         <h4>Zachód słońca dzisiaj o: {sunsetTime}</h4>
         <h4>Siła wiatru: {wind} m/s</h4>
         <h4>Ciśnienie: ${pressure} hPa</h4>
-      </div>
+      </>
     )
   }
   return (
