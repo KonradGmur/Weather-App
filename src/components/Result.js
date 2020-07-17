@@ -1,9 +1,13 @@
 import React from 'react';
 import './Result.css'
 
-const Result = () => {
+const Result = (props) => {
+  const { err, city, temp, sunrise, sunset, pressure, wind } = props.weather;
   return (
-    <div>Miasto, pogoda</div>
+    <>
+      <div>Pogoda dla: {city}</div>
+      <div>Temperatura: {temp}</div>
+    </>
   )
 }
 

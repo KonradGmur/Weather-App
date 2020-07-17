@@ -3,6 +3,8 @@ import Form from './Form';
 import Result from './Result';
 import './App.css';
 
+const APIKey = '5f8843adc098ec73a289be697a274010'
+
 class App extends Component {
   state = {
     value: '',
@@ -24,17 +26,32 @@ class App extends Component {
 
   handleCitySubmit = (e) => {
     e.preventDefault()
-    const API = `http://api.openweathermap.org/data/2.5/weather?q=${this.state.value},&APPID=5f8843adc098ec73a289be697a274010`;
+    const API = `http://api.openweathermap.org/data/2.5/weather?q=${this.state.value},&APPID=${APIKey}`;
     fetch(API)
       .then(response => {
         if (response.ok) {
           return response
         }
-        throw Error ("Nie udało się pobrać danych z API")
+        throw Error("Nie udało się pobrać danych z API")
       })
       .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
+      .then(data => {
+        const time = new Date().toLocaleString()
+        this.setState(prevState => ({
+          err: false,
+          date: time,
+          sunrise: data.sys.sunrise,
+          sunset: data.sys.sunset,
+          temp: data.main.temp,
+          pressure: data.main.pressure,
+          wind: data.wind.speed,
+          city: prevState.value,
+        }))
+      })
+      .catch(err => console.log(err), this.setState(prevState => ({
+        err: true,
+        city: prevState.value
+      })))
 
   }
 
@@ -42,7 +59,7 @@ class App extends Component {
     return (
       <div className="App">
         <Form value={this.state.value} change={this.handleInputChange} submit={this.handleCitySubmit} />
-        <Result />
+        <Result error={this.state.err} weather={this.state} />
       </div>
     );
   }
